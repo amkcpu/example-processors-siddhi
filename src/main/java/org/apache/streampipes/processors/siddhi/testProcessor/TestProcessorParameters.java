@@ -16,20 +16,20 @@ package org.apache.streampipes.processors.siddhi.testProcessor;/*
  *
  */
 
-import org.apache.streampipes.wrapper.siddhi.engine.SiddhiEventEngine;
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-import java.util.List;
+public class TestProcessorParameters extends EventProcessorBindingParams {
 
-public class SelectFrom extends SiddhiEventEngine<SelectFromParameters> {
+    String from;
 
-    @Override
-    protected String fromStatement(List<String> inputStreamNames, SelectFromParameters params) {
-        return params.getFrom().replace("<STREAM>", inputStreamNames.get(0));
+    public TestProcessorParameters(DataProcessorInvocation graph, String from) {
+        super(graph);
+        this.from = from;
     }
 
-    @Override
-    protected String selectStatement(SelectFromParameters params) {
-        return getCustomOutputSelectStatement(params.getGraph());
+    public String getFrom() {
+        return from;
     }
 
 }

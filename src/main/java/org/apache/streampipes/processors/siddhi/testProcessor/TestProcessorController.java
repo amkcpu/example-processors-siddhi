@@ -31,7 +31,7 @@ import org.apache.streampipes.sdk.utils.Assets;
 import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
 import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
 
-public class SelectFromController extends StandaloneEventProcessingDeclarer<SelectFromParameters>  {
+public class TestProcessorController extends StandaloneEventProcessingDeclarer<TestProcessorParameters>  {
 
     private final String FROM_STATEMENT = "from";
 
@@ -51,13 +51,13 @@ public class SelectFromController extends StandaloneEventProcessingDeclarer<Sele
     }
 
     @Override
-    public ConfiguredEventProcessor<SelectFromParameters> onInvocation(DataProcessorInvocation graph, ProcessingElementParameterExtractor extractor) {
+    public ConfiguredEventProcessor<TestProcessorParameters> onInvocation(DataProcessorInvocation graph, ProcessingElementParameterExtractor extractor) {
 
         String from = extractor.singleValueParameter(FROM_STATEMENT, String.class);
 
-        SelectFromParameters params = new SelectFromParameters(graph, from);
+        TestProcessorParameters params = new TestProcessorParameters(graph, from);
 
-        return new ConfiguredEventProcessor<>(params, SelectFrom::new);
+        return new ConfiguredEventProcessor<>(params, TestProcessor::new);
 
     }
 }
