@@ -16,7 +16,7 @@ package org.apache.streampipes.processors.siddhi.selectfrom;/*
  *
  */
 
-import com.ibm.jvm.dtfjview.Output;
+// import com.ibm.jvm.dtfjview.Output;
 import org.apache.streampipes.model.DataProcessorType;
 import org.apache.streampipes.model.graph.DataProcessorDescription;
 import org.apache.streampipes.model.graph.DataProcessorInvocation;
