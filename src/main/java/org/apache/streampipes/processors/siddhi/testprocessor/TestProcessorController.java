@@ -1,4 +1,4 @@
-package org.apache.streampipes.processors.siddhi.testProcessor;/*
+package org.apache.streampipes.processors.siddhi.testprocessor;/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -21,10 +21,10 @@ package org.apache.streampipes.processors.siddhi.testProcessor;/*
 import org.apache.streampipes.model.DataProcessorType;
 import org.apache.streampipes.model.graph.DataProcessorDescription;
 import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.processors.siddhi.filter.FilterOperator;
 import org.apache.streampipes.sdk.builder.ProcessingElementBuilder;
 import org.apache.streampipes.sdk.builder.StreamRequirementsBuilder;
 import org.apache.streampipes.sdk.extractor.ProcessingElementParameterExtractor;
-import org.apache.streampipes.sdk.helpers.Labels;
 import org.apache.streampipes.sdk.helpers.Locales;
 import org.apache.streampipes.sdk.helpers.OutputStrategies;
 import org.apache.streampipes.sdk.utils.Assets;
@@ -33,11 +33,13 @@ import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcess
 
 public class TestProcessorController extends StandaloneEventProcessingDeclarer<TestProcessorParameters>  {
 
-    private final String FROM_STATEMENT = "from";
+    String[] FILTER_PROPERTIES = {"s0mass_flow"};
+    FilterOperator[] FILTER_OPERATORS = {FilterOperator.LE};
+    Double[] THRESHOLDS = {100.0};
 
     @Override
     public DataProcessorDescription declareModel() {
-        return ProcessingElementBuilder.create("org.apache.streampipes.processors.siddhi.selectfrom")
+        return ProcessingElementBuilder.create("org.apache.streampipes.processors.siddhi.testprocessor")
                 .category(DataProcessorType.FILTER)
                 .withLocales(Locales.EN)
                 .withAssets(Assets.DOCUMENTATION)
@@ -45,7 +47,8 @@ public class TestProcessorController extends StandaloneEventProcessingDeclarer<T
                         .create()
                         //.requiredProperty(EpRequirements.anyProperty())
                         .build())
-                .requiredTextParameter(Labels.withId(FROM_STATEMENT))
+                // .requiredSingleValueSelection(Labels.withId(OPERATION), Options.from("<", "<=", ">",
+                //        ">=", "==", "!="))
                 .outputStrategy(OutputStrategies.custom())
                 .build();
     }
@@ -53,9 +56,11 @@ public class TestProcessorController extends StandaloneEventProcessingDeclarer<T
     @Override
     public ConfiguredEventProcessor<TestProcessorParameters> onInvocation(DataProcessorInvocation graph, ProcessingElementParameterExtractor extractor) {
 
-        String from = extractor.singleValueParameter(FROM_STATEMENT, String.class);
+        Double[] thresholds;
+        String[] filterProperties;
+        FilterOperator[] filterOperators;
 
-        TestProcessorParameters params = new TestProcessorParameters(graph, from);
+        TestProcessorParameters params = new TestProcessorParameters(graph, THRESHOLDS, FILTER_OPERATORS, FILTER_PROPERTIES);
 
         return new ConfiguredEventProcessor<>(params, TestProcessor::new);
 
