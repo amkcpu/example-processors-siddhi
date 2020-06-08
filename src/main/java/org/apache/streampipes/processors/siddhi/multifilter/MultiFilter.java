@@ -29,6 +29,11 @@ public class MultiFilter extends SiddhiEventEngine<MultiFilterParameters> {
         String[] statements = params.getFilterStatements();
         int timeWindow = params.getTimeWindow();
 
+        // add s0 prefix to all properties
+        for (int i = 0; i < statements.length; i++) {
+            statements[i] = "s0" + statements[i];
+        }
+
         // concatenate filter statements to a single statement string
         String statementsAsString = StringUtils.join(statements, " and ");
 
