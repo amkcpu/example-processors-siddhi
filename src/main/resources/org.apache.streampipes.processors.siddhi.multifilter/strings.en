@@ -4,8 +4,8 @@ org.apache.streampipes.processors.siddhi.multifilter.description=Filter along mu
 statements-collection.title=Filter Statements
 statements-collection.description=Collection of filter statements.
 
-statement-box.title=SB Title
-statement-box.description=SB Desc
+statement-box.title=Statement
+statement-box.description=Specifies a filter statement (e.g. temperature <= 100.0)
 
 time-window.title=Time Window
-time-window.description=Specifies a time window (in ms).
+time-window.description=Specifies a time window (in ms). Set to 0 if not needed.

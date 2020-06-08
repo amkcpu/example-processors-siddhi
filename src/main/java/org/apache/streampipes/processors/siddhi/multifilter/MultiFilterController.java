@@ -49,10 +49,11 @@ public class MultiFilterController extends StandaloneEventProcessingDeclarer<Mul
                 .withAssets(Assets.DOCUMENTATION)
                 .requiredStream(StreamRequirementsBuilder
                         .create()
-                        .requiredProperty(EpRequirements.numberReq())
+                        // .requiredProperty(EpRequirements.anyProperty())
                         .build())
                 .requiredParameterAsCollection(Labels.withId(STATEMENTS_COLLECTION_ID),
-                        StaticProperties.stringFreeTextProperty(Labels.withId(STATEMENT_BOX_ID)))
+                        StaticProperties.stringFreeTextProperty(Labels.from(STATEMENT_BOX_ID,
+                                "Statement", "Specifies a filter statement (e.g. temperature <= 100.0)")))
                 .requiredIntegerParameter(Labels.withId(TIME_WINDOW_ID))
                 .outputStrategy(OutputStrategies.custom())
                 .build();
