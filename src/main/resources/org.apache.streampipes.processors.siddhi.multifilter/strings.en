@@ -1,0 +1,2 @@
+org.apache.streampipes.processors.siddhi.multifilter.title=Multi Filter
+org.apache.streampipes.processors.siddhi.multifilter.description=Filter along multiple attributes at once, optionally specifying a time window.
