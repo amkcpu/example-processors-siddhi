@@ -1,2 +1,11 @@
 org.apache.streampipes.processors.siddhi.multifilter.title=Multi Filter
 org.apache.streampipes.processors.siddhi.multifilter.description=Filter along multiple attributes at once, optionally specifying a time window.
+
+statements-collection.title=Filter Statements
+statements-collection.description=Collection of filter statements.
+
+statement-box.title=SB Title
+statement-box.description=SB Desc
+
+time-window.title=Time Window
+time-window.description=Specifies a time window (in ms).
