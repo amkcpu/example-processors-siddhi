@@ -1,4 +1,4 @@
-package org.apache.streampipes.processors.siddhi.testprocessor;/*
+package org.apache.streampipes.processors.siddhi.multifilter;/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -21,48 +21,52 @@ package org.apache.streampipes.processors.siddhi.testprocessor;/*
 import org.apache.streampipes.model.DataProcessorType;
 import org.apache.streampipes.model.graph.DataProcessorDescription;
 import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.processors.siddhi.filter.FilterOperator;
+import org.apache.streampipes.sdk.StaticProperties;
 import org.apache.streampipes.sdk.builder.ProcessingElementBuilder;
 import org.apache.streampipes.sdk.builder.StreamRequirementsBuilder;
 import org.apache.streampipes.sdk.extractor.ProcessingElementParameterExtractor;
+import org.apache.streampipes.sdk.helpers.EpRequirements;
+import org.apache.streampipes.sdk.helpers.Labels;
 import org.apache.streampipes.sdk.helpers.Locales;
 import org.apache.streampipes.sdk.helpers.OutputStrategies;
 import org.apache.streampipes.sdk.utils.Assets;
 import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
 import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
 
-public class TestProcessorController extends StandaloneEventProcessingDeclarer<TestProcessorParameters>  {
+public class MultiFilterController extends StandaloneEventProcessingDeclarer<MultiFilterParameters>  {
 
-    String[] FILTER_PROPERTIES = {"s0mass_flow"};
-    FilterOperator[] FILTER_OPERATORS = {FilterOperator.LE};
-    Double[] THRESHOLDS = {100.0};
+    // String[] STATEMENTS = {"s0mass_flow <= 100.0", "s0temperature > 20"};
+    // int TIME_WINDOW = 0;
+    private static final String STATEMENTS_COLLECTION_ID = "statements-collection";
+    private static final String TIME_WINDOW_ID = "time-window";
+    private static final String STATEMENT_BOX_ID = "statement-box";
 
     @Override
     public DataProcessorDescription declareModel() {
-        return ProcessingElementBuilder.create("org.apache.streampipes.processors.siddhi.testprocessor")
+        return ProcessingElementBuilder.create("org.apache.streampipes.processors.siddhi.multifilter")
                 .category(DataProcessorType.FILTER)
                 .withLocales(Locales.EN)
                 .withAssets(Assets.DOCUMENTATION)
                 .requiredStream(StreamRequirementsBuilder
                         .create()
-                        //.requiredProperty(EpRequirements.anyProperty()) TODO auf Numbers
+                        .requiredProperty(EpRequirements.numberReq())
                         .build())
-                // .requiredSingleValueSelection(Labels.withId(OPERATION), Options.from("<", "<=", ">",
-                //        ">=", "==", "!="))
+                .requiredParameterAsCollection(Labels.withId(STATEMENTS_COLLECTION_ID),
+                        StaticProperties.stringFreeTextProperty(Labels.withId(STATEMENT_BOX_ID)))
+                .requiredIntegerParameter(Labels.withId(TIME_WINDOW_ID))
                 .outputStrategy(OutputStrategies.custom())
                 .build();
     }
 
     @Override
-    public ConfiguredEventProcessor<TestProcessorParameters> onInvocation(DataProcessorInvocation graph, ProcessingElementParameterExtractor extractor) {
+    public ConfiguredEventProcessor<MultiFilterParameters> onInvocation(DataProcessorInvocation graph, ProcessingElementParameterExtractor extractor) {
 
-        Double[] thresholds;
-        String[] filterProperties;
-        FilterOperator[] filterOperators;
+        String[] statements = extractor.singleValueParameterFromCollection(STATEMENTS_COLLECTION_ID, String.class).toArray(new String[0]);
+        int timeWindow = extractor.singleValueParameter(TIME_WINDOW_ID, Integer.class);
 
-        TestProcessorParameters params = new TestProcessorParameters(graph, THRESHOLDS, FILTER_OPERATORS, FILTER_PROPERTIES);
+        MultiFilterParameters params = new MultiFilterParameters(graph, statements, timeWindow);
 
-        return new ConfiguredEventProcessor<>(params, TestProcessor::new);
+        return new ConfiguredEventProcessor<>(params, MultiFilter::new);
 
     }
 }

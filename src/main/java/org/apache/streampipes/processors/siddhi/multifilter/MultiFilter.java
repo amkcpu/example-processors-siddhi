@@ -1,4 +1,4 @@
-package org.apache.streampipes.processors.siddhi.testprocessor;/*
+package org.apache.streampipes.processors.siddhi.multifilter;/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -16,24 +16,32 @@ package org.apache.streampipes.processors.siddhi.testprocessor;/*
  *
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.streampipes.processors.siddhi.filter.FilterOperator;
 import org.apache.streampipes.wrapper.siddhi.engine.SiddhiEventEngine;
 
 import java.util.List;
 
-public class TestProcessor extends SiddhiEventEngine<TestProcessorParameters> {
+public class MultiFilter extends SiddhiEventEngine<MultiFilterParameters> {
 
     @Override
-    protected String fromStatement(List<String> inputStreamNames, TestProcessorParameters params) {
-        String[] filterProperties = params.getFilterProperties();
-        String[] filterOperators = rewriteOperatorList(params.getFilterOperators());
-        Double[] thresholds = params.getThresholds();
-        
-        return "from " + inputStreamNames.get(0) +"[" + filterProperties[0] + filterOperators[0] + thresholds[0] +"]";
+    protected String fromStatement(List<String> inputStreamNames, MultiFilterParameters params) {
+        String[] statements = params.getFilterStatements();
+        int timeWindow = params.getTimeWindow();
+
+        // concatenate filter statements to a single statement string
+        String statementsAsString = StringUtils.join(statements, " and ");
+
+        String fromStatement = "from every " + inputStreamNames.get(0) +"[" + statementsAsString +"]";
+
+        if (timeWindow > 0)
+            fromStatement = fromStatement + "\nwithin " + timeWindow + " milliseconds";
+
+        return fromStatement;
     }
 
     @Override
-    protected String selectStatement(TestProcessorParameters params) {
+    protected String selectStatement(MultiFilterParameters params) {
         return getCustomOutputSelectStatement(params.getGraph());
     }
 

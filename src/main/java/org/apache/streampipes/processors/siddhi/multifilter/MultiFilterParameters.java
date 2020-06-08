@@ -1,4 +1,4 @@
-package org.apache.streampipes.processors.siddhi.testprocessor;/*
+package org.apache.streampipes.processors.siddhi.multifilter;/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -17,37 +17,25 @@ package org.apache.streampipes.processors.siddhi.testprocessor;/*
  */
 
 import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.processors.siddhi.filter.FilterOperator;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-public class TestProcessorParameters extends EventProcessorBindingParams {
 
-    String[] filterProperties;
-    FilterOperator[] filterOperators;
-    Double[] thresholds;
-    double within;
+public class MultiFilterParameters extends EventProcessorBindingParams {
 
-    public TestProcessorParameters(DataProcessorInvocation graph, Double[] thresholds, FilterOperator[]
-            filterOperator, String[] filterProperty) {
+    String[] statements;
+    int timeWindow;
+
+    public MultiFilterParameters(DataProcessorInvocation graph, String[] statements, int timeWindow) {
         super(graph);
-        this.thresholds = thresholds;
-        this.filterOperators = filterOperator;
-        this.filterProperties = filterProperty;
+        this.statements = statements;
+        this.timeWindow = timeWindow;
     }
 
-    public Double[] getThresholds() {
-        return thresholds;
+    public String[] getFilterStatements() {
+        return statements;
     }
 
-    public String[] getFilterProperties() {
-        return filterProperties;
-    }
-
-    public FilterOperator[] getFilterOperators() {
-        return filterOperators;
-    }
-
-    public double getWithin() {
-        return within;
+    public int getTimeWindow() {
+        return timeWindow;
     }
 }
