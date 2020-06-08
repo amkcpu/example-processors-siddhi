@@ -45,7 +45,7 @@ public class TestProcessorController extends StandaloneEventProcessingDeclarer<T
                 .withAssets(Assets.DOCUMENTATION)
                 .requiredStream(StreamRequirementsBuilder
                         .create()
-                        //.requiredProperty(EpRequirements.anyProperty())
+                        //.requiredProperty(EpRequirements.anyProperty()) TODO auf Numbers
                         .build())
                 // .requiredSingleValueSelection(Labels.withId(OPERATION), Options.from("<", "<=", ">",
                 //        ">=", "==", "!="))
