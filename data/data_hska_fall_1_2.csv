@@ -1,4 +1,4 @@
-time,t_hts_1 (degC),t_hts_2 (degC),t_hts_3 (degC),t_hts_4 (degC),t_lts_1 (degC),t_lts_0 (degC),t_fpsc (degC),t_vtsc (degC),t_amb (degC),v_ppsc (perc),v_pssc (perc),b_ac (perc),i_g (W/m2)
+time,t_hts_1,t_hts_2,t_hts_3,t_hts_4,t_lts_1,t_lts_0,t_fpsc,t_vtsc,t_amb,v_ppsc,v_pssc,b_ac,i_g
 2020-05-27 22:20:33+02:00,50.0,48.9,48.5,47.9,16.4,16.8,15.6,36.6,19.9,0,0,1,1.275
 2020-05-27 22:20:38+02:00,50.0,48.9,48.5,47.9,16.4,16.7,15.6,36.6,19.9,0,0,1,1.275
 2020-05-27 22:20:43+02:00,50.0,48.9,48.5,47.9,16.4,16.7,15.6,36.6,19.9,0,0,1,1.4083299999999999
