@@ -1,0 +1,8 @@
+org.apache.streampipes.processors.siddhi.eventcounter.title=Event Counter
+org.apache.streampipes.processors.siddhi.eventcounter.description=Event Counter in Siddhi
+
+min-no-events.title=Minimum number of events
+min-no-events.description=Specifies minimum number of events that have to occur before passing on any event.
+
+time-window-length.title=Time Window
+time-window-length.description=Specifies a time window (in seconds). Set to 0 if not needed.
