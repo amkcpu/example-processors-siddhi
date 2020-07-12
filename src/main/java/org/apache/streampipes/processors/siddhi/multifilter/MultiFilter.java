@@ -35,9 +35,13 @@ public class MultiFilter extends SiddhiEventEngine<MultiFilterParameters> {
         }
 
         // concatenate filter statements to a single statement string
-        String statementsAsString = StringUtils.join(statements, " and ");
+        String statementPart;
+        if (statements.length == 0)
+            statementPart = "";
+        else
+            statementPart = "[" + StringUtils.join(statements, " and ") + "]";
 
-        String fromStatement = "from every " + inputStreamNames.get(0) +"[" + statementsAsString +"]";
+        String fromStatement = "from every " + inputStreamNames.get(0) + statementPart;
 
         if (timeWindow > 0)
             fromStatement = fromStatement + "\nwithin " + timeWindow + " milliseconds";
