@@ -66,8 +66,8 @@ public class StreamComparatorController extends StandaloneEventProcessingDeclare
     public ConfiguredEventProcessor<StreamComparatorParameters> onInvocation(DataProcessorInvocation graph, ProcessingElementParameterExtractor extractor) {
 
         float maxDeviation = extractor.singleValueParameter(MAX_DEVIATION, Float.class);
-        String fieldToCompare = extractor.singleValueParameter(FIELD_TO_COMPARE, String.class);
-        String referenceFieldToCompare = extractor.singleValueParameter(REFERENCE_FIELD_TO_COMPARE, String.class);
+        String fieldToCompare = extractor.mappingPropertyValue(FIELD_TO_COMPARE);
+        String referenceFieldToCompare = extractor.mappingPropertyValue(REFERENCE_FIELD_TO_COMPARE);
 
         StreamComparatorParameters params = new StreamComparatorParameters(graph, maxDeviation, fieldToCompare, referenceFieldToCompare);
 
