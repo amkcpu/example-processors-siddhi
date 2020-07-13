@@ -31,12 +31,14 @@ public class StreamComparator extends SiddhiEventEngine<StreamComparatorParamete
         String fieldToCompare = params.getFieldToCompare();
         String referenceFieldToCompare = params.getReferenceFieldToCompare();
 
-        return "from every " + mainStream + "";
+        //return "from " + mainStream;
+        return "from every " + mainStream + "[" + fieldToCompare + "] >= " + referenceStream + "[" + referenceFieldToCompare + "]";
     }
 
     @Override
     protected String selectStatement(StreamComparatorParameters params) {
-        return getCustomOutputSelectStatement(params.getGraph());
+        return "select *";
+        //return getCustomOutputSelectStatement(params.getGraph());
     }
 
 }
