@@ -25,11 +25,13 @@ public class EventCounterParameters extends EventProcessorBindingParams {
 
   private int minNoEvents;
   private int timeWindowLength;
+  private String timestampField;
 
-  public EventCounterParameters(DataProcessorInvocation graph, int minNoEvents, int timeWindowLength) {
+  public EventCounterParameters(DataProcessorInvocation graph, int minNoEvents, int timeWindowLength, String timestampField) {
     super(graph);
     this.minNoEvents = minNoEvents;
     this.timeWindowLength = timeWindowLength;
+    this.timestampField = timestampField;
   }
 
   public int getMinNoEvents() {
@@ -38,6 +40,10 @@ public class EventCounterParameters extends EventProcessorBindingParams {
 
   public int getTimeWindowLength() {
     return timeWindowLength;
+  }
+
+  public String getTimestampField() {
+    return timestampField;
   }
 
 }

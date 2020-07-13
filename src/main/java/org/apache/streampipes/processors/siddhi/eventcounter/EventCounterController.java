@@ -34,6 +34,7 @@ public class EventCounterController extends StandaloneEventProcessingDeclarer<Ev
 
 	private static final String MIN_NO_EVENTS = "min-no-events";
 	private static final String TIME_WINDOW_LENGTH = "time-window-length";
+	private static final String TIMESTAMP_FIELD = "timestamp-field";
 
 	@Override
 	public DataProcessorDescription declareModel() {
@@ -43,6 +44,9 @@ public class EventCounterController extends StandaloneEventProcessingDeclarer<Ev
 				.withAssets(Assets.DOCUMENTATION)
 				.requiredStream(StreamRequirementsBuilder
 						.create()
+						.requiredPropertyWithUnaryMapping(EpRequirements.anyProperty(),
+								Labels.withId(TIMESTAMP_FIELD),
+								PropertyScope.NONE)
 						.build())
 				.requiredIntegerParameter(Labels.withId(MIN_NO_EVENTS))
 				.requiredIntegerParameter(Labels.withId(TIME_WINDOW_LENGTH))
@@ -55,8 +59,9 @@ public class EventCounterController extends StandaloneEventProcessingDeclarer<Ev
 
 		int minNoEvents = extractor.singleValueParameter(MIN_NO_EVENTS, Integer.class);
 		int timeWindowLength = extractor.singleValueParameter(TIME_WINDOW_LENGTH, Integer.class);
+		String timestampField = extractor.mappingPropertyValue(TIMESTAMP_FIELD);
 
-		EventCounterParameters staticParam = new EventCounterParameters(graph, minNoEvents, timeWindowLength);
+		EventCounterParameters staticParam = new EventCounterParameters(graph, minNoEvents, timeWindowLength, timestampField);
 
 		return new ConfiguredEventProcessor<>(staticParam, EventCounter::new);
 	}
