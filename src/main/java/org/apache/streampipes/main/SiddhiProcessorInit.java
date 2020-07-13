@@ -30,6 +30,7 @@ import org.apache.streampipes.messaging.kafka.SpKafkaProtocolFactory;
 import org.apache.streampipes.config.Config;
 import org.apache.streampipes.processors.siddhi.filter.FilterController;
 import org.apache.streampipes.processors.siddhi.selectfrom.SelectFromController;
+import org.apache.streampipes.processors.siddhi.streamcomparator.StreamComparatorController;
 
 
 public class SiddhiProcessorInit extends StandaloneModelSubmitter {
@@ -37,7 +38,8 @@ public class SiddhiProcessorInit extends StandaloneModelSubmitter {
   public static void main(String[] args) throws Exception {
     DeclarersSingleton.getInstance()
             .add(new FilterController())
-            .add(new SelectFromController());
+            .add(new SelectFromController())
+            .add(new StreamComparatorController());
 
     DeclarersSingleton.getInstance().setPort(Config.INSTANCE.getPort());
     DeclarersSingleton.getInstance().setHostName(Config.INSTANCE.getHost());
