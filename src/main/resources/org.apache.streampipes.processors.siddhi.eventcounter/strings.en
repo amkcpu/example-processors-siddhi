@@ -6,3 +6,6 @@ min-no-events.description=Specifies minimum number of events that have to occur 
 
 time-window-length.title=Time Window
 time-window-length.description=Specifies a time window (in seconds). Set to 0 if not needed.
+
+timestamp-field.title=Timestamp Field
+timestamp-field.description=Specifies which timestamp field to use from stream.
