@@ -24,19 +24,23 @@ import org.apache.streampipes.wrapper.siddhi.engine.SiddhiEventEngine;
 import java.util.List;
 
 public class EventCounter extends SiddhiEventEngine<EventCounterParameters> {
+    // TODO be able to choose whether to use system or provided timestamp or use time window at all
+    //  (see Rate Limit processing element for Controller setup)
 
     @Override
     protected String fromStatement(List<String> inputStreamNames, EventCounterParameters params) {
         int timeWindowLength = params.getTimeWindowLength();
-        String timestampField = params.getTimestampField();
+        String timestampField = params.getTimestampField().replace("::", "");
 
         String fromStatement = "from " + inputStreamNames.get(0);
 
         // using Siddhi time window syntax (https://docs.wso2.com/display/CEP310/Windows#Windows-timeWindow)
         if (timeWindowLength > 0)
-            fromStatement += "#window.time(" + timeWindowLength + " sec)";
-            //fromStatement += "#window.externalTime(" + "s0timestamp" + ", " + timeWindowLength + " sec)";
-            //fromStatement += "#window.externalTime(" + timestampField + ", " + timeWindowLength + " sec)";
+            fromStatement += "#window.externalTime(" + timestampField + ", " + timeWindowLength + " sec)";
+            // fromStatement += "#window.time(" + timeWindowLength + " sec)";
+
+            // fromStatement += "#window.time(" + timeWindowLength + " sec)<" + minNoEvents + ":>";
+            // fromStatement += "#window.externalTime(" + "s0timestamp" + ", " + timeWindowLength + " sec)";
 
         return fromStatement;
     }
