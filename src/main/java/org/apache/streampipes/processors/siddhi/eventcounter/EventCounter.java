@@ -30,7 +30,7 @@ public class EventCounter extends SiddhiEventEngine<EventCounterParameters> {
     @Override
     protected String fromStatement(List<String> inputStreamNames, EventCounterParameters params) {
         int timeWindowLength = params.getTimeWindowLength();
-        String timestampField = params.getTimestampField().replace("::", "");
+        String timestampField = prepareName(params.getTimestampField()); //.replace("::", "");
 
         String fromStatement = "from " + inputStreamNames.get(0);
 
@@ -51,5 +51,10 @@ public class EventCounter extends SiddhiEventEngine<EventCounterParameters> {
 
         return getCustomOutputSelectStatement(params.getGraph()) + ", count() as count"
                 + "\nhaving count >= " + minNoEvents;
+    }
+
+    @Override
+    protected String setTimestamp(EventCounterParameters params) {
+        return params.getTimestampField();
     }
 }
