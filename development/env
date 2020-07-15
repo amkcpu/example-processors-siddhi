@@ -1,7 +1,4 @@
 # Those parameters are used by IntelliJ to set the default consul parameters for development
 SP_PORT=8005
-SP_HOST=100.120.21.73
+SP_HOST=host.docker.internal
 SP_DEBUG=true
-CONSUL_LOCATION=192.168.99.100
-SP_KAFKA_HOST=192.168.99.100
-SP_KAFKA_PORT=9095
