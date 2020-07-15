@@ -36,11 +36,8 @@ public class EventCounter extends SiddhiEventEngine<EventCounterParameters> {
 
         // using Siddhi time window syntax (https://docs.wso2.com/display/CEP310/Windows#Windows-timeWindow)
         if (timeWindowLength > 0)
-            fromStatement += "#window.externalTime(" + timestampField + ", " + timeWindowLength + " sec)";
-            // fromStatement += "#window.time(" + timeWindowLength + " sec)";
-
-            // fromStatement += "#window.time(" + timeWindowLength + " sec)<" + minNoEvents + ":>";
-            // fromStatement += "#window.externalTime(" + "s0timestamp" + ", " + timeWindowLength + " sec)";
+            fromStatement += "#window.time(" + timeWindowLength + " sec)";
+            // fromStatement += "#window.externalTime(" + timestampField + ", " + timeWindowLength + " sec)";
 
         return fromStatement;
     }
