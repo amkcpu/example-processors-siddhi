@@ -47,13 +47,13 @@ public class StreamComparatorController extends StandaloneEventProcessingDeclare
                 .withAssets(Assets.DOCUMENTATION)
                 .requiredStream(StreamRequirementsBuilder
                         .create()
-                        .requiredPropertyWithUnaryMapping(EpRequirements.anyProperty(),
+                        .requiredPropertyWithUnaryMapping(EpRequirements.numberReq(),
                                 Labels.withId(FIELD_TO_COMPARE),
                                 PropertyScope.NONE)
                         .build())
                 .requiredStream(StreamRequirementsBuilder
                         .create()
-                        .requiredPropertyWithUnaryMapping(EpRequirements.anyProperty(),
+                        .requiredPropertyWithUnaryMapping(EpRequirements.numberReq(),
                                 Labels.withId(REFERENCE_FIELD_TO_COMPARE),
                                 PropertyScope.NONE)
                         .build())
