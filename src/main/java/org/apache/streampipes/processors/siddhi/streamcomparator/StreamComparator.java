@@ -27,18 +27,20 @@ public class StreamComparator extends SiddhiEventEngine<StreamComparatorParamete
         String mainStream = inputStreamNames.get(0);
         String referenceStream = inputStreamNames.get(1);
 
-        float maxDeviation = params.getMaxDeviation();
-        String fieldToCompare = params.getFieldToCompare();
-        String referenceFieldToCompare = params.getReferenceFieldToCompare();
-
-        //return "from " + mainStream;
-        return "from every " + mainStream + "[" + fieldToCompare + "] >= " + referenceStream + "[" + referenceFieldToCompare + "]";
+        return "from every e1 = " + mainStream + " and e2 = " + referenceStream;
     }
 
     @Override
     protected String selectStatement(StreamComparatorParameters params) {
-        return "select *";
-        //return getCustomOutputSelectStatement(params.getGraph());
+        float maxDeviation = params.getMaxDeviation();
+
+        String fieldToCompare = "e1." + prepareName(params.getFieldToCompare());
+        String referenceFieldToCompare = "e2." + prepareName(params.getReferenceFieldToCompare());
+
+        String compareFunction = String.format("100*math:abs(%1$s - %2$s)/ifThenElse(%1$s==0 and %2$s==0, 1.0, math:min(%1$s, %2$s))", fieldToCompare, referenceFieldToCompare);
+
+        return getCustomOutputSelectStatement(params.getGraph()) + compareFunction + " as diff"
+        + "\nhaving diff > " + maxDeviation;
     }
 
 }
