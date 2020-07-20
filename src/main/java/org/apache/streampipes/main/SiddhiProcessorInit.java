@@ -31,6 +31,7 @@ import org.apache.streampipes.config.Config;
 import org.apache.streampipes.processors.siddhi.eventcounter.EventCounterController;
 import org.apache.streampipes.processors.siddhi.filter.FilterController;
 import org.apache.streampipes.processors.siddhi.selectfrom.SelectFromController;
+import org.apache.streampipes.processors.siddhi.streamcomparator.StreamComparatorController;
 
 
 public class SiddhiProcessorInit extends StandaloneModelSubmitter {
@@ -39,6 +40,7 @@ public class SiddhiProcessorInit extends StandaloneModelSubmitter {
     DeclarersSingleton.getInstance()
             .add(new FilterController())
             .add(new SelectFromController())
+            .add(new StreamComparatorController())
             .add(new EventCounterController());
 
     DeclarersSingleton.getInstance().setPort(Config.INSTANCE.getPort());
