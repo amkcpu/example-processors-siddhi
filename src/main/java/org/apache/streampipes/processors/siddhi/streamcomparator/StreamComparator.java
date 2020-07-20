@@ -16,7 +16,6 @@ package org.apache.streampipes.processors.siddhi.streamcomparator;/*
  *
  */
 
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.siddhi.engine.SiddhiEventEngine;
 
 import java.util.List;
