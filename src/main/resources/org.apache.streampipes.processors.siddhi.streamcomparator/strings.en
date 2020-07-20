@@ -1,0 +1,11 @@
+org.apache.streampipes.processors.siddhi.streamcomparator.title=Stream Comparator
+org.apache.streampipes.processors.siddhi.streamcomparator.description=Check two streams for deviations.
+
+max-deviation.title=Maximum Deviation Allowed
+max-deviation.description=Maximum deviation of the two stream (in %).
+
+field-to-compare.title=Field To Compare
+field-to-compare.description=Specifies the stream's field to be used for the comparison.
+
+reference-field-to-compare.title=Reference Field to Compare
+reference-field-to-compare.description=Specifies other field to compare with from reference stream.
