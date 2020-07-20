@@ -37,8 +37,9 @@ public class StreamComparator extends SiddhiEventEngine<StreamComparatorParamete
         String fieldToCompare = "e1." + prepareName(params.getFieldToCompare());
         String referenceFieldToCompare = "e2." + prepareName(params.getReferenceFieldToCompare());
 
-        //String compareFunction = String.format("100*(%1$s - %2$s) / ifThenElse(%1$s==0 and %2$s==0, 1.0, %1$s)", fieldToCompare, referenceFieldToCompare);
-        String compareFunction = String.format("100*math:abs(%1$s - %2$s) / ifThenElse(%1$s==0 and %2$s==0, 1.0, math:min(%1$s, %2$s))", fieldToCompare, referenceFieldToCompare);
+        String compareFunction = String.format("100*math:abs(%1$s - %2$s) / ifThenElse(%1$s==0 and %2$s==0, 1.0, math:min(%1$s, %2$s))",
+                fieldToCompare,
+                referenceFieldToCompare);
 
         return getCustomOutputSelectStatement(params.getGraph()) + ", " + compareFunction + " as diff"
         + "\nhaving diff > " + maxDeviation;
