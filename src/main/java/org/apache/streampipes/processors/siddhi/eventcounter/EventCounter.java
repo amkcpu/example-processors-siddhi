@@ -30,7 +30,7 @@ public class EventCounter extends SiddhiEventEngine<EventCounterParameters> {
     @Override
     protected String fromStatement(List<String> inputStreamNames, EventCounterParameters params) {
         int timeWindowLength = params.getTimeWindowLength();
-        String timestampField = prepareName(params.getTimestampField()); //.replace("::", "");
+        String timestampField = prepareName(params.getTimestampField());
 
         String fromStatement = "from " + inputStreamNames.get(0);
 
