@@ -16,6 +16,7 @@ package org.apache.streampipes.processors.siddhi.streamcomparator;/*
  *
  */
 
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.siddhi.engine.SiddhiEventEngine;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class StreamComparator extends SiddhiEventEngine<StreamComparatorParamete
                 fieldToCompare,
                 referenceFieldToCompare);
 
-        return getCustomOutputSelectStatement(params.getGraph()) + ", " + compareFunction + " as diff"
+        return getCustomOutputSelectStatement(params.getGraph(), 1) + ", " + compareFunction + " as diff"
         + "\nhaving diff > " + maxDeviation;
     }
 
