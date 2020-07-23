@@ -30,13 +30,13 @@ Count events within specified time window and only forward them if threshold is 
 ***
 
 ## Required input
-- Minimum Number Of Events: Specifies minimum number of events that have to occur before passing on any event.
-- Time Window: Specifies a time window (in seconds). Set to 0 if not needed.
+### Minimum Number Of Events
+Specifies minimum number of events that have to occur before passing on any event.
+
+### Time Window
+Specifies the time window to consider (in seconds). Note that a sliding time window is used.
 
 ***
-
-## Configuration
-
 
 ## Output
 The processor outputs the input event if the number of events occurring in the time window exceed the threshold value.

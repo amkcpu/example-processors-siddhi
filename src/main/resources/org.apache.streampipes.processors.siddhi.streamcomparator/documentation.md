@@ -25,28 +25,23 @@
 ***
 
 ## Description
-Compare two streams based on one field. If they deviate with more than `x` percent
-(where `x` is specified in the `Maximum Deviation` parameter), the events will not be filtered.
-Else, the events from stream one will be passed.
+Compare two streams based on one field, with one acting as input stream and the other as reference.
+If they deviate by more than `x` percent on the specified fields, the events from stream 1 will be passed on.
 
 ***
 
 ## Required input
-`Maximum Deviation`: Deviation in % that is allowed.
+### Field To Compare
+Specifies the field name from stream 1 to use for the comparison (has to be numeric).
+
+### Reference Field To Compare
+Specifies the field name from stream 2, the reference stream, to use for the comparison (has to be numeric).
+
+###Maximum Deviation
+Deviation in % that is allowed.
 
 ***
 
-## Configuration
-
-### Field
-Specifies the field name where the filter operation should be applied on.
-
-
-### Operation
-Specifies the filter operation that should be applied on the field.
-
-### Threshold value
-Specifies the threshold value.
-
 ## Output
-The processor outputs the input event if it satisfies the filter expression.
+The processor outputs the input event from stream 1 if the streams deviate by more than specified
+in the `Maximum Deviation` parameter.
